@@ -1,6 +1,8 @@
 # VolleyStandardRequest
 Get JSON array using volley
 
+API file inclueded in api folder. Copy this file to your local server public folder(htdocs or www). Change base url according to your ip address
+
 ### Sample Database:
 
 ![database](https://user-images.githubusercontent.com/19519527/53700106-1d687400-3e19-11e9-9ab8-bc9468f26f79.jpg)

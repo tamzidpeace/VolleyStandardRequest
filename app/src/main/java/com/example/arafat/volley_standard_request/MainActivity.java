@@ -31,14 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
     //member variables
     private TextView mTextView;
-    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mButton = findViewById(R.id.btn);
+        Button mButton = findViewById(R.id.btn);
         mTextView = findViewById(R.id.txt);
 
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -52,18 +51,11 @@ public class MainActivity extends AppCompatActivity {
 
                             @Override
                             public void onResponse(JSONObject response) {
-                                try {
 
-                                    String name = response.getJSONArray("response2").getJSONObject(0).getString("Name");
-                                    String email = response.getJSONArray("response2").getJSONObject(0).getString("Email");
-                                    String mobile = response.getJSONArray("response2").getJSONObject(0).getString("Mobile");
+                                Model model = Model.fromJson(response);
+                                updateUI(model);
 
-                                    mTextView.setText("Name: " + name + "\n" + "Email: " + email + "\n" + "Mobile: " + mobile);
 
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    Log.d(TAG, "onResponse: " + e.toString());
-                                }
                             }
                         }, new Response.ErrorListener() {
 
@@ -80,6 +72,15 @@ public class MainActivity extends AppCompatActivity {
                 MySingleton.getInstance(MainActivity.this).addToRequestQueue(jsonObjectRequest);
             }
         });
+
+    }
+
+    private void updateUI(Model model) {
+
+        String name = model.getName();
+        String email = model.getEmail();
+        String mobile = model.getMobile();
+        mTextView.setText("Name: " + name + "\n" + "Email: " + email + "\n" + "Mobile: " + mobile);
 
     }
 }
